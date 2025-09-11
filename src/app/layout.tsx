@@ -1,15 +1,76 @@
+import { Header } from "@/widgets/header";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
+import { Providers } from "./providers";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const fontSatoshi = localFont({
+  src: [
+    {
+      path: "../assets/fonts/Satoshi/Satoshi-Light.woff2",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/Satoshi/Satoshi-LightItalic.woff2",
+      weight: "300",
+      style: "italic",
+    },
+    {
+      path: "../assets/fonts/Satoshi/Satoshi-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/Satoshi/Satoshi-Italic.woff2",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "../assets/fonts/Satoshi/Satoshi-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/Satoshi/Satoshi-MediumItalic.woff2",
+      weight: "500",
+      style: "italic",
+    },
+    {
+      path: "../assets/fonts/Satoshi/Satoshi-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/Satoshi/Satoshi-BoldItalic.woff2",
+      weight: "700",
+      style: "italic",
+    },
+    {
+      path: "../assets/fonts/Satoshi/Satoshi-Black.woff2",
+      weight: "900",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/Satoshi/Satoshi-BlackItalic.woff2",
+      weight: "900",
+      style: "italic",
+    },
+  ],
+  variable: "--font-Satoshi",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const fontIntegralCF = localFont({
+  src: [
+    {
+      path: "../assets/fonts/IntegralCF/IntegralCF-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-IntegralCF",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -24,10 +85,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={`${fontSatoshi.variable} ${fontIntegralCF.variable} antialiased`}>
+        <Providers>
+          <Header />
+          {children}
+        </Providers>
       </body>
     </html>
   );
