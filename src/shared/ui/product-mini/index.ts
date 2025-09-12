@@ -1,1 +1,0 @@
-export { ProductMini } from './ProductMini';

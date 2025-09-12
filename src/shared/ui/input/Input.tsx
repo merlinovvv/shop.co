@@ -27,9 +27,9 @@ export const Input: React.FC<InputProps> = ({
     <div className={clsx(`flex items-center gap-3 relative rounded-full px-4 py-3`, variants[variant], className)}>
       {!!Icon && !loading ? (
         <Icon className={clsx("text-black/40", classNameIcon)} />
-      ) : (
+      ) : !!loading ? (
         <LoaderCircle className={clsx("text-black/40", "animate-spin")} />
-      )}
+      ) : null}
       <input {...props} className="bg-transparent outline-none placeholder:text-black/40 w-full" />
     </div>
   );

@@ -1,4 +1,4 @@
-import { Product } from "@/shared/types/product";
+import { Product } from "@/shared/types/api/product";
 import Image from "next/image";
 
 export const ProductMini: React.FC<Product> = ({ title, price, category, images }) => {
