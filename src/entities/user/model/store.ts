@@ -1,62 +1,81 @@
+import { authApi } from "@/shared/api/auth";
 import { LoginBody, RegisterBody, TokensResponse, User } from "@/shared/types/api/auth";
 import { ErrorResponse } from "@/shared/types/api/errors";
-import axios from "axios";
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface AuthState {
-  authData: TokensResponse | null;
-  isLoginProccess: boolean;
-  setIsLoginProccess: (isLogin: boolean) => void;
+  tokens: TokensResponse | null;
+  authData: User | null;
+
+  isLoginProcess: boolean;
   isOpenModal: boolean;
-  loading: boolean;
-  errorLogin: ErrorResponse;
-  errorRegister: ErrorResponse;
+
+  loadingLogin: boolean;
+  loadingRegister: boolean;
+
+  errorLogin: ErrorResponse | null;
+  errorRegister: ErrorResponse | null;
+
   getRegister: (body: RegisterBody) => Promise<void>;
   getLogin: (body: LoginBody) => Promise<void>;
+  logout: () => void;
+
   setIsOpenModal: (isOpen: boolean) => void;
+  setIsLoginProcess: (isLogin: boolean) => void;
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
-  authData: null,
-  isOpenModal: false,
-  isLoginProccess: true,
-  loading: false,
-  errorLogin: {} as ErrorResponse,
-  errorRegister: {} as ErrorResponse,
-  getRegister: async (body: RegisterBody) => {
-    set({ loading: true, errorRegister: {} as ErrorResponse, errorLogin: {} as ErrorResponse });
-    let loginData = null;
-    try {
-      await axios.post<User>(`${process.env.NEXT_PUBLIC_STORE_API}users`, body).then((res) => res.data);
-    } catch (err: any) {
-      set({ errorRegister: err?.response?.data, loading: false });
-      return
-    }
+export const useAuthStore = create<AuthState>()(
+  persist(
+    (set) => ({
+      tokens: null,
+      authData: null,
+      isLoginProcess: true,
+      isOpenModal: false,
 
-    try {
-      loginData = await axios
-        .post<TokensResponse>(`${process.env.NEXT_PUBLIC_STORE_API}auth/login`, {
-          email: body.email,
-          password: body.password,
-        })
-        .then((res) => res.data);
-    } catch (err: any) {
-      set({ errorLogin: err?.response?.data, loading: false });
-    }
+      loadingLogin: false,
+      loadingRegister: false,
 
-    set({ authData: loginData, loading: false });
-  },
-  getLogin: async (body: LoginBody) => {
-    set({ loading: true, errorLogin: {} as ErrorResponse });
-    try {
-      const data = await axios
-        .post<TokensResponse>(`${process.env.NEXT_PUBLIC_STORE_API}auth/login`, body)
-        .then((res) => res.data);
-      set({ authData: data, loading: false });
-    } catch (err: any) {
-      set({ errorLogin: err?.response?.data, loading: false });
-    }
-  },
-  setIsOpenModal: (isOpen: boolean) => set({ isOpenModal: isOpen }),
-  setIsLoginProccess: (isLogin: boolean) => set({ isLoginProccess: isLogin }),
-}));
+      errorLogin: null,
+      errorRegister: null,
+
+      getRegister: async (body) => {
+        set({ loadingRegister: true, errorRegister: null });
+
+        try {
+          const authData = await authApi.register(body);
+          set({ authData, loadingRegister: false });
+        } catch (err: any) {
+          set({ errorRegister: err?.response?.data, loadingRegister: false });
+          return;
+        }
+
+        set({ loadingLogin: true, errorLogin: null });
+        try {
+          const tokens = await authApi.login({ email: body.email, password: body.password });
+          set({ tokens, loadingLogin: false, isOpenModal: false });
+        } catch (err: any) {
+          set({ errorLogin: err?.response?.data, loadingLogin: false });
+        }
+      },
+
+      getLogin: async (body) => {
+        set({ loadingLogin: true, errorLogin: null });
+
+        try {
+          const tokens = await authApi.login(body);
+          const authData = await authApi.profile(tokens.access_token);
+          set({ tokens, authData, loadingLogin: false, isOpenModal: false });
+        } catch (err: any) {
+          set({ errorLogin: err?.response?.data, loadingLogin: false });
+        }
+      },
+
+      logout: () => set({ tokens: null, authData: null }),
+
+      setIsOpenModal: (isOpen) => set({ isOpenModal: isOpen }),
+      setIsLoginProcess: (isLogin) => set({ isLoginProcess: isLogin }),
+    }),
+    { name: "auth-storage" }
+  )
+);

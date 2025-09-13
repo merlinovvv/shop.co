@@ -1,4 +1,4 @@
-import { InputFile, InputFileProps } from "@/shared/ui/input-file/InputFile";
+import { InputFile } from "@/shared/ui/input-file/InputFile";
 import { FC, useEffect } from "react";
 import { useUploadPhotoStore } from "../model/store";
 import Image from "next/image";

@@ -5,7 +5,7 @@ import { Input } from "@/shared/ui";
 import { Button } from "@/shared/ui";
 
 export const LoginForm = () => {
-  const { loading, getLogin, errorLogin } = useAuthStore();
+  const { loadingLogin, getLogin, errorLogin } = useAuthStore();
 
   return (
     <Formik initialValues={{ email: "", password: "" }} onSubmit={(values) => getLogin(values)}>
@@ -33,7 +33,7 @@ export const LoginForm = () => {
             />
           </div>
           <div className="col-span-12">
-            <Button loading={loading} size="small" type="submit" className="w-full">
+            <Button loading={loadingLogin} size="small" type="submit" className="w-full">
               Log In
             </Button>
           </div>

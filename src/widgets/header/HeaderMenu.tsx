@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { routes } from "@/shared/config";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import clsx from "clsx";
@@ -48,7 +48,7 @@ export const HeaderMenu: FC = () => {
                 </MenuButton>
                 <MenuItems
                   transition
-                  className="py-2 flex flex-col focus:outline-none border border-black/10 rounded-lg mt-2"
+                  className="py-2 flex flex-col focus:outline-none border border-black/10 rounded-lg mt-2 transition duration-100 ease-out data-closed:scale-95 data-closed:opacity-0"
                   anchor="bottom start"
                 >
                   {menu.items?.map((item, idx) => (

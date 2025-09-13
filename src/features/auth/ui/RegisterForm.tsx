@@ -1,11 +1,11 @@
 "use client";
 import { useAuthStore } from "@/entities/user";
 import { UploadPhoto } from "@/features/upload-photo";
-import { Button, Input, InputFile } from "@/shared/ui";
+import { Button, Input } from "@/shared/ui";
 import { Form, Formik } from "formik";
 
 export const RegisterForm = () => {
-  const { loading, getRegister, errorRegister } = useAuthStore();
+  const { loadingRegister, getRegister, errorRegister } = useAuthStore();
   return (
     <Formik
       initialValues={{ email: "", password: "", name: "", avatar: "" }}
@@ -46,14 +46,10 @@ export const RegisterForm = () => {
             />
           </div>
           <div className="col-span-12">
-            <UploadPhoto
-              onChange={(photo) => setFieldValue("avatar", photo)}
-              className="mt-2"
-              label="Upload avatar"
-            />
+            <UploadPhoto onChange={(photo) => setFieldValue("avatar", photo)} className="mt-2" label="Upload avatar" />
           </div>
           <div className="col-span-12">
-            <Button loading={loading} size="small" type="submit" className="w-full mt-2">
+            <Button loading={loadingRegister} size="small" type="submit" className="w-full mt-2">
               Register
             </Button>
           </div>
