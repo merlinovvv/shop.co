@@ -12,8 +12,7 @@ const headerMenuList = [
   {
     title: "Shop",
     items: [
-      { title: "All Products", href: routes.shop.products },
-      { title: "Categories", href: routes.shop.categories },
+      { title: "All Products", href: routes.products.root },
     ],
   },
   {

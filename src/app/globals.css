@@ -6,22 +6,17 @@
   }
 
   h1,
-  h2,
-  h3 {
+  h2 {
     font-family: var(--font-IntegralCF), sans-serif;
     font-weight: 700;
   }
 
   h1 {
-    @apply text-[36px]/[34px] md:text-[64px]/[64px];
+    @apply text-[36px]/[34px] md:text-[64px]/[64px] uppercase;
   }
 
   h2 {
-    @apply text-[32px] md:text-[48px];
-  }
-
-  h3 {
-    @apply text-[40px] md:text-[48px];
+    @apply text-[32px] md:text-[48px] uppercase;
   }
 }
 
@@ -44,22 +39,25 @@
     transition: all 0.2s ease 0s;
   }
 
-  .burger-button.active span:nth-child(2){
+  .burger-button.active span:nth-child(2) {
     opacity: 0;
   }
 
-  .burger-button.active span:nth-child(1){
+  .burger-button.active span:nth-child(1) {
     transform: rotate(45deg);
   }
 
-  .burger-button.active span:nth-child(3){
+  .burger-button.active span:nth-child(3) {
     transform: rotate(-45deg);
   }
 
-}
+  .logo {
+    font-family: var(--font-IntegralCF), sans-serif;
+    text-box-trim: trim-end;
+    @apply text-[25px]/[25px] md:text-[32px]/[32px] font-bold;
+  }
 
-.logo {
-  font-family: var(--font-IntegralCF), sans-serif;
-  text-box-trim: trim-end;
-  @apply text-[25px]/[25px] md:text-[32px]/[32px] font-bold;
+  .small-text{
+    @apply text-sm/[20px] md:text-base/[22px] text-black/60
+  }
 }

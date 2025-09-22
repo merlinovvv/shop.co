@@ -12,18 +12,15 @@ export const UserAvatar: FC<UserAvatarProps> = ({ avatar, name, logout }) => {
   return (
     <Menu>
       <MenuButton className="focus:outline-none cursor-pointer">
-        <Image className="rounded-full" width={24} height={24} src={avatar} alt="User Avatar" />
+        <Image className="rounded-full object-center object-cover w-6 h-6" width={24} height={24} src={avatar} alt="User Avatar" />
       </MenuButton>
       <MenuItems
         transition
-        className="py-2 flex flex-col focus:outline-none border border-black/10 rounded-lg mt-2 transition duration-100 ease-out data-closed:scale-95 data-closed:opacity-0"
+        className="py-2 bg-white flex flex-col focus:outline-none border border-black/10 rounded-lg mt-2 transition duration-100 ease-out data-closed:scale-95 data-closed:opacity-0"
         anchor="bottom end"
       >
         <MenuItem>
-          <div className="py-2 px-6 flex items-center gap-2" onClick={logout}>
-            <User2 className="w-[16px]" />
-            {name}
-          </div>
+          <div className="py-2 px-6 flex items-center gap-2">👋 Hello, {name}!</div>
         </MenuItem>
         <div className="my-1 h-px bg-black/5" />
         <MenuItem>
