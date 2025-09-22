@@ -1,12 +1,11 @@
 export const routes = {
-  home: '/',
-  cart: '/cart',
-  shop: {
-    root: '/shop',
-    products: '/shop/products',
-    categories: '/shop/categories',
+  home: "/",
+  cart: "/cart",
+  products: {
+    root: "/products",
+    byId: (id: string | number) => `/products/${id}`
   },
-  onSale: '/on-sale',
-  newArrivals: '/new-arrivals',
-  brands: '/brands',
+  onSale: "/on-sale",
+  newArrivals: "/new-arrivals",
+  brands: "/brands",
 };

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Providers } from "./providers";
+import { PromoBanner } from "@/widgets/promo-banner";
 
 const fontSatoshi = localFont({
   src: [
@@ -87,6 +88,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${fontSatoshi.variable} ${fontIntegralCF.variable} antialiased`}>
         <Providers>
+          <PromoBanner />
           <Header />
           {children}
         </Providers>

@@ -1,6 +1,7 @@
 'use client'
 import { FC, useRef } from "react";
 import { Button } from "../button/Button";
+import { File } from "lucide-react";
 
 export interface InputFileProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -12,7 +13,7 @@ export const InputFile: FC<InputFileProps> = ({ label = "Upload", loading, ...pr
   return (
     <div>
       <input ref={inputRef} hidden type="file" {...props} />
-      <Button loading={loading} type="button" className="w-full" size="small" variant="outlined" onClick={() => inputRef.current?.click()}>
+      <Button icon={File} loading={loading} type="button" className="w-full" size="small" variant="outlined" onClick={() => inputRef.current?.click()}>
         {label}
       </Button>
     </div>

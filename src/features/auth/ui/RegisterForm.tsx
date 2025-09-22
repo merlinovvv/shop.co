@@ -3,6 +3,7 @@ import { useAuthStore } from "@/entities/user";
 import { UploadPhoto } from "@/features/upload-photo";
 import { Button, Input } from "@/shared/ui";
 import { Form, Formik } from "formik";
+import { AtSign, KeyRound, Link, User } from "lucide-react";
 
 export const RegisterForm = () => {
   const { loadingRegister, getRegister, errorRegister } = useAuthStore();
@@ -15,6 +16,7 @@ export const RegisterForm = () => {
         <Form className="grid grid-cols-1 gap-3">
           <div className="col-span-12">
             <Input
+              icon={User}
               className="mt-2"
               variant="gray"
               placeholder="Name"
@@ -25,6 +27,7 @@ export const RegisterForm = () => {
           </div>
           <div className="col-span-12">
             <Input
+              icon={AtSign}
               className="mt-2"
               variant="gray"
               placeholder="Email"
@@ -35,6 +38,7 @@ export const RegisterForm = () => {
           </div>
           <div className="col-span-12">
             <Input
+              icon={KeyRound}
               type="password"
               className="mt-2"
               variant="gray"
@@ -47,6 +51,17 @@ export const RegisterForm = () => {
           </div>
           <div className="col-span-12">
             <UploadPhoto onChange={(photo) => setFieldValue("avatar", photo)} className="mt-2" label="Upload avatar" />
+          </div>
+          <div className="col-span-12 text-center">or</div>
+          <div className="col-span-12">
+            <Input
+              icon={Link}
+              variant="gray"
+              placeholder="Avatar link"
+              name="avatar"
+              value={values.avatar}
+              onChange={handleChange}
+            />
           </div>
           <div className="col-span-12">
             <Button loading={loadingRegister} size="small" type="submit" className="w-full mt-2">
